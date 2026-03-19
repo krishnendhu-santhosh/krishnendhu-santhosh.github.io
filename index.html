@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Krishnendhu Santhosh — IT Professional</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0a0d14;
+      --bg2:       #0f1420;
+      --bg3:       #141927;
+      --gold:      #c9a84c;
+      --gold2:     #e8c97a;
+      --white:     #f0ece4;
+      --muted:     #7a8399;
+      --border:    rgba(201,168,76,0.18);
+      --font-disp: 'Cormorant Garamond', serif;
+      --font-mono: 'DM Mono', monospace;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: rgba(10,13,20,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+    .nav-logo {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--gold);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: center;
+      padding: 8rem 3rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-grid-bg {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 65%);
+      top: 10%; right: -100px;
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--gold);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+    h1 {
+      font-family: var(--font-disp);
+      font-size: clamp(3rem, 7vw, 6.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      max-width: 800px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.4s forwards;
+    }
+    h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .hero-sub {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin-top: 1.8rem;
+      line-height: 1.8;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.6s forwards;
+    }
+    .hero-cta {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      margin-top: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.8s forwards;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.8rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.25s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--bg);
+      font-weight: 500;
+    }
+    .btn-primary:hover { background: var(--gold2); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--gold);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--gold); background: rgba(201,168,76,0.06); }
+
+    .hero-stats {
+      display: flex; gap: 3rem; flex-wrap: wrap;
+      margin-top: 4rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border);
+      opacity: 0;
+      animation: fadeUp 0.8s 1s forwards;
+    }
+    .stat-num {
+      font-family: var(--font-disp);
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 0.3rem;
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 6rem 3rem; max-width: 1100px; margin: 0 auto; }
+    .section-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--gold);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+    h2 {
+      font-family: var(--font-disp);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300;
+      letter-spacing: -0.01em;
+      margin-bottom: 3rem;
+    }
+
+    /* ── ABOUT ── */
+    #about { border-top: 1px solid var(--border); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .about-text p {
+      color: rgba(240,236,228,0.75);
+      margin-bottom: 1.2rem;
+      font-size: 0.95rem;
+    }
+    .about-text p strong { color: var(--gold); font-weight: 500; }
+    .cert-list { list-style: none; margin-top: 1.5rem; }
+    .cert-list li {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid rgba(201,168,76,0.1);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .cert-list li::before {
+      content: '◆';
+      color: var(--gold);
+      font-size: 0.5rem;
+      flex-shrink: 0;
+    }
+    .about-side h3 {
+      font-family: var(--font-disp);
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+
+    /* ── SKILLS ── */
+    #skills { border-top: 1px solid var(--border); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .skill-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.5rem;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .skill-card:hover {
+      border-color: rgba(201,168,76,0.5);
+      transform: translateY(-3px);
+    }
+    .skill-card-icon {
+      font-size: 1.4rem;
+      margin-bottom: 0.8rem;
+    }
+    .skill-card h4 {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--gold);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+    .skill-card p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── EXPERIENCE ── */
+    #experience { border-top: 1px solid var(--border); }
+    .exp-block {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .exp-block:first-of-type { padding-top: 0; }
+    .exp-meta {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      padding-top: 0.2rem;
+    }
+    .exp-meta .exp-date { color: var(--gold); margin-bottom: 0.4rem; }
+    .exp-role {
+      font-family: var(--font-disp);
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 0.3rem;
+    }
+    .exp-company {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .exp-bullets { list-style: none; }
+    .exp-bullets li {
+      display: flex; gap: 0.75rem;
+      font-size: 0.88rem;
+      color: rgba(240,236,228,0.72);
+      margin-bottom: 0.6rem;
+      line-height: 1.65;
+    }
+    .exp-bullets li::before {
+      content: '→';
+      color: var(--gold);
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+    }
+    .exp-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem; }
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      background: var(--bg3);
+      border: 1px solid rgba(201,168,76,0.15);
+      padding: 0.25rem 0.6rem;
+      border-radius: 2px;
+    }
+
+    /* ── PROJECTS ── */
+    #projects { border-top: 1px solid var(--border); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .project-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .project-card:hover { border-color: rgba(201,168,76,0.5); transform: translateY(-4px); }
+    .project-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+    .project-num {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: rgba(201,168,76,0.4);
+      letter-spacing: 0.2em;
+      margin-bottom: 1rem;
+    }
+    .project-card h3 {
+      font-family: var(--font-disp);
+      font-size: 1.35rem;
+      font-weight: 400;
+      margin-bottom: 0.3rem;
+    }
+    .project-client {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .project-card p {
+      font-size: 0.85rem;
+      color: rgba(240,236,228,0.65);
+      line-height: 1.7;
+    }
+    .project-metrics {
+      display: flex; gap: 1.5rem; flex-wrap: wrap;
+      margin-top: 1.2rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid var(--border);
+    }
+    .metric { }
+    .metric-val {
+      font-family: var(--font-disp);
+      font-size: 1.5rem;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .metric-lbl {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ── EDUCATION ── */
+    #education { border-top: 1px solid var(--border); }
+    .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .edu-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2rem;
+      transition: border-color 0.25s;
+    }
+    .edu-card:hover { border-color: rgba(201,168,76,0.4); }
+    .edu-degree {
+      font-family: var(--font-disp);
+      font-size: 1.25rem;
+      font-weight: 400;
+      margin-bottom: 0.3rem;
+    }
+    .edu-school {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+    .edu-year {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--muted);
+    }
+    .edu-modules {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: rgba(240,236,228,0.55);
+      font-style: italic;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      max-width: 700px;
+    }
+    #contact h2 { margin-bottom: 1rem; }
+    #contact p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 2.5rem;
+    }
+    .contact-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0.65rem 1.2rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      letter-spacing: 0.08em;
+      transition: all 0.2s;
+    }
+    .contact-link:hover { color: var(--gold); border-color: var(--gold); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 3rem;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    footer p {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+    .footer-right {
+      display: flex; gap: 1.5rem;
+    }
+    .footer-right a {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      transition: color 0.2s;
+    }
+    .footer-right a:hover { color: var(--gold); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      section { padding: 4rem 1.5rem; }
+      #hero { padding: 7rem 1.5rem 4rem; }
+      .about-grid,
+      .projects-grid,
+      .edu-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .exp-block { grid-template-columns: 1fr; gap: 0.5rem; }
+      footer { padding: 1.5rem; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">KS / Portfolio</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-eyebrow">Available for UAE employment — IT Supervisor</div>
+  <h1>Krishnendhu<br><em>Santhosh</em></h1>
+  <p class="hero-sub">
+    IT Professional with 4+ years of enterprise systems, network infrastructure, and team leadership experience. Now bringing that expertise to world-class hospitality environments across Dubai.
+  </p>
+  <div class="hero-cta">
+    <a href="mailto:krishnendhusanthosh176@gmail.com" class="btn btn-primary">Get in Touch</a>
+    <a href="https://linkedin.com/in/krishnendhu-santhosh-29480b190" target="_blank" class="btn btn-outline">LinkedIn</a>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="stat-num">4+</div>
+      <div class="stat-label">Years IT Experience</div>
+    </div>
+    <div>
+      <div class="stat-num">99.9%</div>
+      <div class="stat-label">Uptime SLA Delivered</div>
+    </div>
+    <div>
+      <div class="stat-num">20+</div>
+      <div class="stat-label">Engineers Mentored</div>
+    </div>
+    <div>
+      <div class="stat-num">5TB+</div>
+      <div class="stat-label">Data Migrated — Zero Loss</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-eyebrow">01 / About</div>
+  <h2>The person<br>behind the CV.</h2>
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <p>
+        I am an IT professional based in <strong>Tunbridge Wells, UK</strong>, currently completing an
+        <strong>MSc in Data Science and Analytics</strong> at the University of Hertfordshire
+        (graduating June 2026), and actively seeking an IT Supervisor role in Dubai's luxury
+        hospitality sector.
+      </p>
+      <p>
+        My career at Infosys was built on one principle: <strong>technology should never be the reason
+        something fails</strong>. I maintained 99.9% uptime SLAs across 20+ enterprise applications,
+        led data migrations for FTSE 100 clients with zero production incidents, and personally
+        mentored over 20 junior engineers.
+      </p>
+      <p>
+        I thrive at the intersection of rigorous technical operations and genuine people skills —
+        whether that means explaining a network outage to a C-suite executive or helping a junior
+        colleague debug their first deployment. In a hospitality environment, those qualities matter
+        every single day.
+      </p>
+      <p>
+        I am fluent in English, a native Malayalam speaker, and conversational in Hindi and Tamil.
+        I hold a <strong>UK Student Visa</strong> and am fully open to UAE employment visa sponsorship.
+      </p>
+    </div>
+    <div class="about-side">
+      <h3>Certifications</h3>
+      <ul class="cert-list">
+        <li>Microsoft Azure Fundamentals (AZ-900) — 2024</li>
+        <li>AWS Cloud Quest: Cloud Practitioner — 2024</li>
+        <li>AI Skilled Passport — EY &amp; Microsoft, 2025</li>
+        <li>BSc Computer Science — Mahatma Gandhi University</li>
+        <li>MSc Data Science &amp; Analytics — In Progress (Jun 2026)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-eyebrow">02 / Skills</div>
+  <h2>Technical<br>capabilities.</h2>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">🌐</div>
+      <h4>Networking &amp; Infrastructure</h4>
+      <p>LAN/WAN, VPN, DNS, DHCP, TCP/IP, VNet, VPC, Load Balancers, Network Security, Firewall Configuration</p>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">🖥️</div>
+      <h4>End-User &amp; IT Support</h4>
+      <p>Hardware &amp; Software Troubleshooting, Helpdesk, Incident Management, Guest-Facing IT Support, IT Asset Management</p>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">🔐</div>
+      <h4>Security &amp; Compliance</h4>
+      <p>RBAC, IAM Policies, Intrusion Detection &amp; Prevention, Anti-virus &amp; Anti-spyware, Data Privacy &amp; GDPR</p>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">📡</div>
+      <h4>Monitoring &amp; Backup</h4>
+      <p>Azure Monitor, AWS CloudWatch, System Performance Monitoring, Disaster Recovery, Data Backup &amp; Restoration</p>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">☁️</div>
+      <h4>Cloud Platforms</h4>
+      <p>Microsoft Azure (AZ-900), Amazon Web Services (AWS Certified), Google Cloud Platform (GCP)</p>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">🪟</div>
+      <h4>OS &amp; Desktop</h4>
+      <p>Windows Server, Windows 10/11, Linux (RHEL, Ubuntu), Microsoft 365, SharePoint, Office Suite</p>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">⚡</div>
+      <h4>Scripting &amp; Automation</h4>
+      <p>PowerShell, Python, Bash — system administration, task automation, and reporting</p>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">👥</div>
+      <h4>Team Leadership</h4>
+      <p>Supervision, Scheduling, Staff Mentoring (20+ engineers), Runbook Authoring, SLA Management, ITIL</p>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-eyebrow">03 / Experience</div>
+  <h2>Where I've<br>made an impact.</h2>
+
+  <div class="exp-block reveal">
+    <div class="exp-meta">
+      <div class="exp-date">Aug 2020 — Dec 2024</div>
+      <div>Trivandrum, India</div>
+    </div>
+    <div>
+      <div class="exp-role">Systems Engineer &amp; Data Analyst</div>
+      <div class="exp-company">Infosys Ltd</div>
+      <ul class="exp-bullets">
+        <li>Architected and maintained Azure and AWS multi-cloud environments supporting 20+ enterprise applications with 99.9% uptime SLA across 3 regions.</li>
+        <li>Automated cloud provisioning using Python, PowerShell, and Terraform — reducing deployment time from 4 hours to 25 minutes (60% reduction).</li>
+        <li>Led AWS-to-Azure migration for London Stock Exchange Group — migrated 5TB+ of legacy data with zero data loss, zero production incidents, delivered 2 weeks ahead of schedule.</li>
+        <li>Built CI/CD pipelines for 8 infrastructure projects, reducing release cycle time by 50%.</li>
+        <li>Deployed Docker containers and managed Kubernetes (AKS) clusters for 5+ microservices workloads.</li>
+        <li>Set up monitoring and alerting across all cloud environments, reducing mean time to resolution (MTTR) by 35%.</li>
+        <li>Authored 30+ operational runbooks and mentored 20+ junior engineers on cloud automation and DevOps best practices.</li>
+      </ul>
+      <div class="exp-tags">
+        <span class="tag">Azure</span>
+        <span class="tag">AWS</span>
+        <span class="tag">GCP</span>
+        <span class="tag">Terraform</span>
+        <span class="tag">Docker</span>
+        <span class="tag">Kubernetes</span>
+        <span class="tag">PowerShell</span>
+        <span class="tag">Python</span>
+        <span class="tag">Azure Monitor</span>
+        <span class="tag">Oracle</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="exp-block reveal">
+    <div class="exp-meta">
+      <div class="exp-date">Jan 2025 — Present</div>
+      <div>Hatfield, UK</div>
+    </div>
+    <div>
+      <div class="exp-role">MSc Student — Data Science &amp; Analytics</div>
+      <div class="exp-company">University of Hertfordshire</div>
+      <ul class="exp-bullets">
+        <li>Advanced Machine Learning, Big Data Analytics, Cloud Computing, Statistical Modelling.</li>
+        <li>Applying enterprise IT and data pipeline experience to academic research and projects.</li>
+        <li>Expected graduation: June 2026.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-eyebrow">04 / Key Projects</div>
+  <h2>Delivered under<br>pressure, on time.</h2>
+  <div class="projects-grid">
+    <div class="project-card reveal">
+      <div class="project-num">01 /</div>
+      <h3>AWS to Azure Migration</h3>
+      <div class="project-client">London Stock Exchange Group</div>
+      <p>Led end-to-end cloud migration of legacy infrastructure to Azure with zero data loss and zero production incidents across a 6-month engagement — delivered 2 weeks ahead of schedule.</p>
+      <div class="project-metrics">
+        <div class="metric">
+          <div class="metric-val">5TB+</div>
+          <div class="metric-lbl">Data Migrated</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">0</div>
+          <div class="metric-lbl">Production Incidents</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">100%</div>
+          <div class="metric-lbl">Business Continuity</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">02 /</div>
+      <h3>Oracle to AWS Data Platform</h3>
+      <div class="project-client">Toyota Motors North America</div>
+      <p>Built Azure Data Factory and Databricks pipelines processing 10M+ records daily, with real-time monitoring and automated anomaly detection — reducing ETL processing time by 40%.</p>
+      <div class="project-metrics">
+        <div class="metric">
+          <div class="metric-val">10M+</div>
+          <div class="metric-lbl">Records / Day</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">40%</div>
+          <div class="metric-lbl">Faster ETL</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">35%</div>
+          <div class="metric-lbl">Faster Incident Response</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-eyebrow">05 / Education</div>
+  <h2>Academic<br>foundation.</h2>
+  <div class="edu-grid reveal">
+    <div class="edu-card">
+      <div class="edu-degree">MSc Data Science &amp; Analytics</div>
+      <div class="edu-school">University of Hertfordshire</div>
+      <div class="edu-year">Jan 2025 — Jun 2026 (Expected) · Hatfield, UK</div>
+      <div class="edu-modules">Advanced Machine Learning · Big Data Analytics · Cloud Computing · Statistical Modelling</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-degree">BSc Computer Science</div>
+      <div class="edu-school">Mahatma Gandhi University</div>
+      <div class="edu-year">Jun 2017 — May 2020 · Kerala, India · GPA: 3.17/4.0</div>
+      <div class="edu-modules">Best Student Award · Student Union Representative</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-eyebrow">06 / Contact</div>
+  <h2>Let's work<br>together.</h2>
+  <p>Open to IT Supervisor and IT Manager roles in Dubai's luxury hospitality sector. Available for UAE employment visa sponsorship. Relocating from UK.</p>
+  <div class="contact-links">
+    <a href="mailto:krishnendhusanthosh176@gmail.com" class="contact-link">
+      ✉ krishnendhusanthosh176@gmail.com
+    </a>
+    <a href="tel:+447553992375" class="contact-link">
+      📞 +44 7553 992375
+    </a>
+    <a href="https://linkedin.com/in/krishnendhu-santhosh-29480b190" target="_blank" class="contact-link">
+      🔗 LinkedIn Profile
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Krishnendhu Santhosh · Tunbridge Wells, UK</p>
+  <div class="footer-right">
+    <a href="#hero">Back to top ↑</a>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
