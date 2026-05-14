@@ -113,6 +113,45 @@
     .pmv { font-family:var(--fd); font-size:1.35rem; font-weight:700; color:var(--blue2); line-height:1; }
     .pml { font-family:var(--fm); font-size:0.58rem; color:var(--muted); letter-spacing:0.08em; text-transform:uppercase; margin-top:0.2rem; }
 
+    /* RESEARCH HERO */
+    .research-hero { display:grid; grid-template-columns:1.5fr 1fr; gap:3rem; align-items:start; background:var(--card); border:1px solid var(--border2); border-radius:10px; padding:2.5rem; margin-bottom:3rem; position:relative; overflow:hidden; }
+    .research-hero::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, var(--blue), var(--purple), var(--cyan), transparent); }
+    .rh-label { font-family:var(--fm); font-size:0.62rem; color:var(--blue); letter-spacing:0.15em; text-transform:uppercase; margin-bottom:0.7rem; }
+    .rh-title { font-family:var(--fd); font-size:1.35rem; font-weight:700; letter-spacing:-0.02em; line-height:1.25; margin-bottom:0.3rem; }
+    .rh-sub { font-family:var(--fm); font-size:0.68rem; color:var(--muted); letter-spacing:0.05em; margin-bottom:1.2rem; }
+    .rh-abstract { font-size:0.84rem; color:rgba(238,240,247,0.65); line-height:1.82; font-weight:300; }
+    .rh-abstract strong { color:var(--white); font-weight:500; }
+    .rh-meta { display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:1.4rem; }
+    .rh-pill { font-family:var(--fm); font-size:0.6rem; color:var(--cyan); background:rgba(56,217,217,0.08); border:1px solid rgba(56,217,217,0.18); padding:0.22rem 0.6rem; border-radius:3px; }
+    .rh-stat-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--border2); border:1px solid var(--border2); border-radius:6px; overflow:hidden; }
+    .rhs { background:var(--bg2); padding:1.4rem 1.2rem; }
+    .rhs-n { font-family:var(--fd); font-size:2rem; font-weight:700; color:var(--blue2); line-height:1; }
+    .rhs-l { font-family:var(--fm); font-size:0.58rem; color:var(--muted); letter-spacing:0.08em; text-transform:uppercase; margin-top:0.3rem; }
+    /* RESEARCH QUESTIONS */
+    .research-rq { margin-bottom:3rem; }
+    .rq-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:1px; background:var(--border2); border:1px solid var(--border2); border-radius:8px; overflow:hidden; }
+    .rq { background:var(--card); padding:1.4rem; transition:background 0.2s; }
+    .rq:hover { background:var(--bg3); }
+    .rq-n { font-family:var(--fm); font-size:0.62rem; color:var(--blue); letter-spacing:0.15em; display:block; margin-bottom:0.5rem; }
+    .rq p { font-size:0.82rem; color:rgba(238,240,247,0.65); line-height:1.72; font-weight:300; margin:0; }
+    /* FINDINGS GRID */
+    .findings-grid { margin-bottom:3rem; }
+    .fg-inner { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1.5rem; }
+    .fc { background:var(--card); border:1px solid var(--border2); border-radius:8px; padding:1.8rem; transition:transform 0.25s,border-color 0.25s,box-shadow 0.25s; position:relative; overflow:hidden; }
+    .fc::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg, var(--purple), var(--blue), transparent); }
+    .fc:hover { transform:translateY(-4px); border-color:rgba(79,142,247,0.3); box-shadow:0 0 40px rgba(79,142,247,0.1); }
+    .fc-icon { font-size:1.4rem; margin-bottom:0.7rem; }
+    .fc-title { font-family:var(--fd); font-size:1rem; font-weight:700; letter-spacing:-0.02em; margin-bottom:0.7rem; }
+    .fc-body { font-size:0.81rem; color:rgba(238,240,247,0.6); line-height:1.78; font-weight:300; margin:0; }
+    .fc-body strong { color:var(--white); font-weight:500; }
+    /* METHODOLOGY STRIP */
+    .method-strip { background:var(--bg2); border:1px solid var(--border2); border-radius:8px; padding:2rem 2.5rem; }
+    .ms-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:2rem; }
+    .ms-step { border-left:1px solid var(--border); padding-left:1.2rem; }
+    .ms-num { font-family:var(--fm); font-size:0.6rem; color:var(--blue); letter-spacing:0.15em; margin-bottom:0.4rem; }
+    .ms-t { font-family:var(--fd); font-size:0.9rem; font-weight:700; margin-bottom:0.4rem; }
+    .ms-d { font-size:0.78rem; color:rgba(238,240,247,0.55); line-height:1.72; font-weight:300; }
+
     /* EDUCATION */
     .eg { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
     .ec { background:var(--card); border:1px solid var(--border2); border-radius:8px; padding:2rem; transition:border-color 0.2s,transform 0.2s; }
@@ -147,7 +186,7 @@
     @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
 
-    /* Reveal — visible by default, JS adds animation */
+    /* Reveal */
     .reveal { opacity:1; transform:none; }
     .reveal.animate-ready { opacity:0; transform:translateY(22px); transition:opacity 0.65s ease, transform 0.65s ease; }
     .reveal.animate-ready.visible { opacity:1; transform:none; }
@@ -159,6 +198,8 @@
       .about-grid,.eg{grid-template-columns:1fr;gap:2.5rem}
       footer{padding:1.2rem 1.5rem;flex-direction:column;align-items:flex-start}
       .cw{padding:4rem 1.5rem}
+      .research-hero{grid-template-columns:1fr;gap:2rem}
+      .method-strip{padding:1.5rem}
     }
   </style>
 </head>
@@ -172,6 +213,7 @@
     <li><a href="#skills">Skills</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#projects">Projects</a></li>
+    <li><a href="#research">Research</a></li>
     <li><a href="#education">Education</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -334,6 +376,115 @@
   </div>
 </div>
 
+<!-- RESEARCH -->
+<div class="sw" id="research">
+  <div class="sec-label">MSc Research</div>
+  <h2>Diagnosing why LLMs<br><span>fail, not just when.</span></h2>
+
+  <!-- Abstract card -->
+  <div class="research-hero reveal">
+    <div class="rh-left">
+      <div class="rh-label">Final Project Report · April 2026</div>
+      <div class="rh-title">Diagnosing Failures in Open-Domain Question Answering Systems</div>
+      <div class="rh-sub">Separating Knowledge Errors from Reasoning Errors in Large Language Models</div>
+      <p class="rh-abstract">
+        LLMs achieve strong QA benchmarks yet the root causes of their failures remain poorly understood. Aggregate accuracy metrics — Exact Match and F1 — cannot tell a practitioner whether to invest in better retrieval, improved prompting, or more training data. This project constructs a controlled evaluation pipeline using <strong>GPT-4</strong> across <strong>150 annotated questions</strong> from NQ, TriviaQA, and HotpotQA, evaluated under five experimental conditions, with every error classified via a validated two-annotator taxonomy (Cohen's &kappa; = 0.81).
+      </p>
+      <div class="rh-meta">
+        <span class="rh-pill">GPT-4 · gpt-4-turbo</span>
+        <span class="rh-pill">RAG · DPR Retrieval</span>
+        <span class="rh-pill">Chain-of-Thought</span>
+        <span class="rh-pill">Error Taxonomy</span>
+        <span class="rh-pill">University of Hertfordshire</span>
+      </div>
+    </div>
+    <div class="rh-right">
+      <div class="rh-stat-grid">
+        <div class="rhs"><div class="rhs-n">150</div><div class="rhs-l">Annotated Questions</div></div>
+        <div class="rhs"><div class="rhs-n">5</div><div class="rhs-l">Experimental Conditions</div></div>
+        <div class="rhs"><div class="rhs-n">0.81</div><div class="rhs-l">Cohen's Kappa</div></div>
+        <div class="rhs"><div class="rhs-n">84%</div><div class="rhs-l">Baseline EM (test set)</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Research questions -->
+  <div class="research-rq reveal">
+    <div class="sec-label" style="margin-bottom:1rem">Research Questions</div>
+    <div class="rq-grid">
+      <div class="rq"><span class="rq-n">RQ1</span><p>What proportion of LLM errors can be attributed to missing knowledge versus incorrect reasoning?</p></div>
+      <div class="rq"><span class="rq-n">RQ2</span><p>To what extent does RAG reduce each type of error?</p></div>
+      <div class="rq"><span class="rq-n">RQ3</span><p>Does Chain-of-Thought selectively improve reasoning errors over knowledge errors?</p></div>
+      <div class="rq"><span class="rq-n">RQ4</span><p>How does error distribution vary across single-hop versus multi-hop datasets?</p></div>
+    </div>
+  </div>
+
+  <!-- Key findings -->
+  <div class="findings-grid reveal">
+    <div class="sec-label" style="margin-bottom:1.5rem">Key Findings</div>
+    <div class="fg-inner">
+      <div class="fc">
+        <div class="fc-icon">🎯</div>
+        <div class="fc-title">Parametric Memory Wins</div>
+        <p class="fc-body">GPT-4's closed-book baseline achieved <strong>84.0% average EM</strong> on the held-out test set — outperforming every augmented condition. Live DPR retrieval caused a <strong>−10.0pp drop</strong>, confirming retrieval noise is a genuine constraint in realistic deployment settings.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">🔗</div>
+        <div class="fc-title">Perfect Hop-Count Separation</div>
+        <p class="fc-body">Error type and question complexity are perfectly separable: all <strong>7 knowledge errors</strong> occur in 1-hop questions; all <strong>15 reasoning errors</strong> occur in 2/3-hop questions — validated on both training and held-out splits without adjustment.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">⚠️</div>
+        <div class="fc-title">CoT Harms Single-Hop QA</div>
+        <p class="fc-body">Chain-of-Thought caused regressions of <strong>52.9pp on NQ</strong> and <strong>64.7pp on TriviaQA</strong> through sentence-form output failures and hallucination — while matching baseline on multi-hop HotpotQA (68.8%).</p>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">📊</div>
+        <div class="fc-title">Confidence as Intervention Signal</div>
+        <p class="fc-body">Correctly answered questions: mean confidence <strong>0.981</strong>; knowledge errors: <strong>0.497</strong>; reasoning errors: <strong>0.265</strong>. This gap provides a model-derived threshold for selective retrieval activation — no ground-truth labels required at inference time.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">✅</div>
+        <div class="fc-title">RAG+CoT Beats Baseline on Multi-Hop</div>
+        <p class="fc-body">The combined RAG + CoT condition is the <strong>only configuration</strong> to exceed the closed-book baseline, producing a <strong>+3.3pp gain on HotpotQA</strong> — the context where both retrieved evidence and structured reasoning are genuinely needed.</p>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">🗺️</div>
+        <div class="fc-title">Selective Remediation Framework</div>
+        <p class="fc-body">The findings motivate routing questions by complexity and confidence: standard prompting for 1-hop, retrieval only below ~0.60 confidence, RAG+CoT for multi-hop — replacing uniform augmentation with <strong>evidence-based intervention routing</strong>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Methodology strip -->
+  <div class="method-strip reveal">
+    <div class="sec-label" style="margin-bottom:1.5rem">Methodology at a Glance</div>
+    <div class="ms-grid">
+      <div class="ms-step">
+        <div class="ms-num">01</div>
+        <div class="ms-t">Dataset</div>
+        <div class="ms-d">150 questions from NQ, TriviaQA &amp; HotpotQA — spanning single-hop factual recall to multi-hop compositional inference. 100 train / 50 test split.</div>
+      </div>
+      <div class="ms-step">
+        <div class="ms-num">02</div>
+        <div class="ms-t">5-Condition Factorial</div>
+        <div class="ms-d">Closed-Book · RAG Only · CoT Only · RAG+CoT · RAG+CoT+Self-Verify — evaluated at temperature 0 for reproducibility.</div>
+      </div>
+      <div class="ms-step">
+        <div class="ms-num">03</div>
+        <div class="ms-t">Error Taxonomy</div>
+        <div class="ms-d">Four-category classification (knowledge · reasoning · ambiguous · correct) via a two-stage decision rule, validated by two independent annotators.</div>
+      </div>
+      <div class="ms-step">
+        <div class="ms-num">04</div>
+        <div class="ms-t">Evaluation Metrics</div>
+        <div class="ms-d">Exact Match (EM) and token-level F1 per condition, per error type, per domain, per hop count — plus confidence calibration analysis.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
 <!-- EDUCATION -->
 <div class="sw" id="education">
   <div class="sec-label">Education</div>
@@ -384,7 +535,6 @@
 </footer>
 
 <script>
-  // Only animate if JS works — content is visible by default without JS
   document.querySelectorAll('.reveal').forEach(function(el) {
     el.classList.add('animate-ready');
   });
